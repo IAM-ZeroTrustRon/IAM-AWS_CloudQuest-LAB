@@ -1,4 +1,4 @@
-# AWS Cloud Quest Cybersecurity Portfolio
+# AWS Cloud Quest Core Concepts LAB
 
 Hands-on labs in identity & access management, network segmentation, cloud cost
 estimation, and database security — documenting real IAM configurations,
