@@ -21,11 +21,11 @@ denying all mutating actions — then **prove** it by getting a 403.
 3. **Signed in as `support-engineer-1`** in a separate session. The "Choose AWS
    sessions" screen was confusing ("Which do I choose?") — resolved by clicking
    **Add session** to start a fresh session as the IAM user.
-   ![IAM user sign-in page](../images/42-iam-user-signin.png)
-   ![Choose AWS sessions dialog](../images/43-choose-sessions.png)
+   ![IAM user sign-in page](../images/43-iam-user-signin.png)
+   ![Choose AWS sessions dialog](../images/44-choose-sessions.png)
 4. **Reviewed the security-credentials tab** for `support-engineer-1` (console
    password, MFA status, access keys).
-   ![Security credentials tab](../images/41-iam-security-credentials.png)
+   ![Security credentials tab](../images/42-iam-security-credentials.png)
 5. **Verification — the 403 proof:** attempted to terminate an EC2 instance as
    `support-engineer-1`. The attempt was denied with error code 403 —
    `ec2:TerminateInstances` not allowed. Read-only access otherwise worked.
