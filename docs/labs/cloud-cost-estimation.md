@@ -1,29 +1,31 @@
-# Cloud Cost Estimation Lab
+# Cloud cost estimation
 
-Use the AWS Pricing Calculator to estimate and then rightsize a workload.
+## Problem
 
-## Objective
+Estimate a modeled workload and compare a revised configuration. These are calculator results, not actual AWS bills or verified performance improvements.
 
-Build a defensible monthly cost estimate for a web server workload, then find
-the savings.
+## Workload inputs
 
-## Steps completed
+The workload dialog records baseline and peak counts with an eight-hour daily duration.
 
-1. **Modeled workload hours** in the Pricing Calculator: Baseline 2, Peak 4,
-   8 hrs/day × 7 days.
-   ![Estimated workload hours](../images/15-workload-hours.png)
-2. **Calculated data transfer**: 1024 GB inbound × $0 = $0; 100 GB outbound ×
-   $0.09 = **$9.00/mo**.
-   ![Show calculations](../images/16-data-transfer-calc.png)
-3. **Initial estimate:** **$93.66/mo** ($1,123.92/12 mo), $0 upfront.
-   ![Initial estimate](../images/18-initial-estimate.png)
-4. **Rightsized** the instance family from **t3 → t2.micro** (DIY goal).
-   New estimate: **$35.26/mo** ($423.12/12 mo), $0 upfront — a **62% cost cut**.
-   ![Rightsized estimate](../images/19-rightsized-estimate.png)
+![Modeled workload hours](../images/15-workload-hours.png)
 
-## Key takeaways
+The transfer calculation shows $0 inbound and $9 monthly outbound under the displayed calculator assumptions. These historical exercise figures are not a current pricing quotation.
 
-- Cost estimation is a security-adjacent skill: uncontrolled spend is a business
-  risk, and rightsizing is the cheapest "optimization" available.
-- The Pricing Calculator's workload-hour model forces you to quantify *usage*,
-  not just pick instance types.
+![Modeled transfer calculation](../images/16-data-transfer-calc.png)
+
+## Initial and revised estimates
+
+Initial estimate: $93.66 per month, $1,123.92 over twelve months, with $0 upfront.
+
+![Initial calculator estimate](../images/18-initial-estimate.png)
+
+Revised estimate: $35.26 per month, $423.12 over twelve months, with $0 upfront.
+
+![Revised calculator estimate](../images/19-rightsized-estimate.png)
+
+The displayed totals differ by $58.40 monthly, $700.80 annually, or approximately 62.4%. The user reports changing to t2.micro as part of the exercise; the selected instance type is not visible in these summary images. No claim is made that performance was equal or that these savings were realized in production.
+
+## Lesson
+
+Document workload assumptions alongside totals. Cost reduction should be accepted only after performance, capacity and availability needs are evaluated; a lower calculator result alone does not establish an appropriate production configuration.

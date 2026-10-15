@@ -1,63 +1,28 @@
 # AWS Cloud Quest Core Concepts LAB
 
-Hands-on labs in identity & access management, network segmentation, cloud cost
-estimation, and database security — documenting real IAM configurations,
-troubleshooting, and the problems solved along the way.
+Hands-on AWS work covering support-user access, network connectivity, cost estimation and database availability concepts. This repository uses original screenshots of console actions and visible outcomes; instructional slides and example screens are excluded.
 
-> **Note:** All resource identifiers below come from ephemeral AWS lab environments
-> (AWS Cloud Quest). They no longer exist, but the steps and outcomes are real.
+## Selected lab results
 
-## The highlight: IAM least-privilege in action
-
-**[Core Security Concepts — IAM lab](./docs/labs/iam-least-privilege.md)**
-
-- Created IAM group **`SupportEngineers`** with the AWS managed policy
-  **`AmazonEC2ReadOnlyAccess`** attached (least privilege).
-- Created IAM user **`support-engineer-1`**, added it to the group.
-- Signed in as the IAM user and verified read-only access works.
-- **Proved the control:** attempted an EC2 instance termination as the IAM user →
-  denied with **403** (`ec2:TerminateInstances` not allowed). Default-deny working
-  exactly as designed.
-- DIY extension: attached **`AmazonRDSReadOnlyAccess`** to the group so support
-  engineers can view RDS info — validated programmatically.
-
-![IAM 403 denial](./docs/images/44-iam-403-denial.png)
-![SupportEngineers group created](./docs/images/35-iam-group-created.png)
-![SupportEngineer-1 user created](./docs/images/39-iam-user-created.png)
-
-## Labs
-
-| Lab | What I did | Write-up |
+| Lab | Work demonstrated | Evidence and write-up |
 |---|---|---|
-| IAM & least privilege | IAM groups, users, managed policies, 403 verification | [iam-least-privilege.md](./docs/labs/iam-least-privilege.md) |
-| VPC network segmentation | Route tables, IGW routes, security groups, port 3306 DIY fix | [vpc-network-segmentation.md](./docs/labs/vpc-network-segmentation.md) |
-| Cloud cost estimation | Pricing Calculator workload modeling, rightsizing t3 → t2 | [cloud-cost-estimation.md](./docs/labs/cloud-cost-estimation.md) |
-| RDS databases in practice | Multi-AZ concepts, storage autoscaling, read replicas | [rds-databases.md](./docs/labs/rds-databases.md) |
+| Core Security Concepts | Created SupportEngineers, selected its EC2 read-only policy during user creation, and created support-engineer-1 | [IAM access configuration](docs/labs/iam-least-privilege.md) |
+| Networking Concepts | Updated routing and security groups; passed the networking DIY validator | [Network segmentation](docs/labs/vpc-network-segmentation.md) |
+| Cloud Economics | Revised a calculator estimate from $93.66 to $35.26 monthly | [Cost estimation](docs/labs/cloud-cost-estimation.md) |
+| Databases in Practice | Encountered disabled Multi-AZ controls; earned 95% client satisfaction in the consultation | [Database availability review](docs/labs/rds-databases.md) |
 
-## Problems solved
+## Evidence quality
 
-Full troubleshooting log: [problems-solved.md](./docs/problems-solved.md)
+[Evidence register](docs/evidence-register.md) lists the 15 original images, their scope and hashes. Images appear once in the relevant lab write-up. Console success banners, form selections, calculator estimates and simulation scores are distinct evidence types; none alone proves production effectiveness.
 
-- Diagnosed blocked web→DB traffic from an architecture diagram and opened port 3306
-  in the DB security group.
-- Resolved a confusing AWS session-picker screen when signing in as an IAM user.
-- Worked around grayed-out RDS Multi-AZ options (account limitation) without
-  breaking the lab flow.
-- Used the search-box Enter fix to attach a managed policy in the IAM console.
-- Cut a $93.66/mo estimate to $35.26/mo through instance rightsizing.
+The IAM termination denial and RDS DIY implementation were previously described using instructional screenshots. Those images are removed: the supplied action-only evidence does not independently substantiate those outcomes. They remain evidence gaps, not verified test results.
 
-## Skills demonstrated
+## Skills and lessons
 
-- **IAM:** users, groups, managed policies, least privilege, default deny, 403 analysis
-- **Networking:** VPCs, route tables, internet gateways, security groups (stateful
-  inbound/outbound rules), subnet design (public web / private DB)
-- **Cost optimization:** AWS Pricing Calculator, workload-hour modeling, rightsizing
-- **Databases:** RDS Multi-AZ, storage autoscaling, read replicas
-- **Troubleshooting:** reading error codes, architecture diagrams, and console
-  validation states; adapting when lab accounts impose limits
+IAM group membership and managed policies; reading security-group directions and ports; tracing network reachability; calculator workload modeling; distinguishing estimated savings from realized savings; recognizing restricted options; and communicating outcomes without overstating evidence.
 
-## About me
+[Problems solved and limitations](docs/problems-solved.md) explains troubleshooting and remaining evidence needs. These are sandbox exercises, not a production healthcare audit or proof of HIPAA compliance. AWS managed policies satisfy a training requirement but do not establish the narrowest production access.
 
-Career pivoter into cybersecurity — professional background in **healthcare and
-clinical workflows**, targeting healthcare-sector security roles where HIPAA-grade
-data handling and clinical operations experience is an asset.
+## About the author
+
+Ronald Richardson brings behavioral-health and clinical-workflow experience to healthcare GRC and IAM. See the [GRC and IAM project overview](https://github.com/IAM-ZeroTrustRon/GRC-IAM-Portfolio).

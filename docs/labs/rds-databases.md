@@ -1,37 +1,21 @@
-# Databases in Practice Lab
+# Database availability and consultation
 
-Secure, available database design for an insurance-company client (MySQL) with
-availability and efficiency concerns.
+## Problem
 
-## Objective
+The Databases in Practice exercise explores database availability and operational choices. Only the supplied non-instructional outcome and console screenshots are used here.
 
-Walk the client consultation, configure Amazon RDS for resilience, and plan a
-read replica — while navigating account limits gracefully.
+## Encountered disabled configuration
 
-## Steps completed
+The actual RDS form shows disabled Multi-AZ standby choices and a maximum storage threshold of 1000 GiB. The screenshot does not establish the reason for the disabled choices or prove that a configuration was deployed. Account eligibility or configuration prerequisites require separate verification.
 
-1. **Client consultation** — Dr. Dee Tah, insurance company; MySQL workloads;
-   availability and efficiency concerns. Started at 50% client satisfaction.
-   ![Client consultation](../images/21-client-consultation.png)
-2. **RDS concepts** — Amazon RDS overview; Multi-AZ, backups, storage autoscaling.
-3. **Configured RDS resilience:** Multi-AZ "Create a standby instance" option and
-   storage autoscaling (maximum 1000 GiB).
-   ![Storage autoscaling and Multi-AZ](../images/26-multiaz-autoscaling.png)
-4. **Hit an account limitation:** the Multi-AZ standby options were **grayed out**
-   (free-tier/lab account limitation) — not a misconfiguration. Worked around it
-   via the Practice Checklist / AccessDenied guidance and used Skip on validation.
-   ![Grayed out Multi-AZ options](../images/27-multiaz-grayed-out.png)
-5. **DIY:** plan a read replica of the primary DB on db.t3.xlarge; identifiers
-   `my-database` → `my-database-read-replica`.
-   ![DIY read replica](../images/28-diy-read-replica.png)
-6. **Completion** — 95% overall client satisfaction.
-   ![Completion screen](../images/22-completion-95-percent.png)
+![Disabled Multi-AZ standby options](../images/27-multiaz-grayed-out.png)
 
-## Key takeaways
+## Consultation outcome
 
-- Multi-AZ standby + read replicas = availability story for client-facing databases.
-- Knowing the difference between "I misconfigured this" and "the account limits
-  this" is a real operational skill — the grayed-out options were the latter,
-  and the lab flow had a sanctioned workaround.
-- Client-facing work counts: satisfaction went from 50% to 95% through clear
-  communication of the plan.
+The simulation reports 95% overall client satisfaction. Its architecture diagram describes the proposed solution; it is not proof that standby or replica resources were created.
+
+![Databases consultation outcome](../images/22-completion-95-percent.png)
+
+## Lessons and remaining evidence
+
+Multi-AZ standby and read replicas address different availability/read-scaling needs. Disabled controls should trigger prerequisite review, not an unsupported assumption about the cause. A learning objective, empty DIY form or architecture diagram is not implementation evidence. Deployment details, running resource state and successful validation are still needed before claiming a completed Multi-AZ or read-replica configuration.

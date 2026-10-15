@@ -1,40 +1,37 @@
-# VPC Network Segmentation Lab
+# VPC network segmentation
 
-Segment a financial company's network: public web tier, private database tier,
-proper routing, and security-group rules.
+## Problem
 
-## Objective
+The exercise separates a public web tier from a database tier and requires working web-to-database connectivity. The strongest outcome evidence is the networking DIY validator's completion message.
 
-Build a VPC with an Internet Gateway, route traffic correctly, and enforce
-tier-level isolation with security groups — then fix a broken path.
+## Routing change
 
-## Steps completed
+RouteTable2 displays a saved-routes success banner. The exact route destinations are not visible in this crop, so it does not independently prove the full Internet Gateway configuration.
 
-1. **Client consultation** — gathered requirements for a financial company's
-   network segmentation needs.
-2. **VPC setup** — VPC `vpc-0038a8ae943bb557c`; created/updated **RouteTable2**
-   (`rtb-07f21772e33265c60`) with routes through the Internet Gateway.
-   ![Route tables updated](../images/05-route-tables-updated.png)
-3. **WebServerSecurityGroup** (`sg-0e7511947c03ce267`) — configured inbound rules
-   and outbound rules (HTTP/HTTPS/MYSQL outbound).
-   ![Web server SG inbound rules](../images/07-webserver-sg-inbound.png)
-   ![Web server SG outbound rules](../images/08-webserver-sg-outbound.png)
-4. **Diagnosed blocked traffic** — the architecture diagram showed a **red X
-   between the Web Server and the Database**: web→DB traffic was blocked.
-   ![Blocked web to DB traffic](../images/10-blocked-web-db-traffic.png)
-5. **DIY fix** — changed the **DbServerSecurityGroup** (`sg-09bdaa38352513e0b`)
-   inbound rules to allow **MySQL/Aurora (port 3306)** into the DB server.
-   Console confirmed "Inbound security group rules successfully modified."
-   ![DB server SG inbound rules modified](../images/12-dbserver-sg-inbound.png)
-   ![You did it — validation passed](../images/13-you-did-it.png)
-6. **Completion** — green connected architecture; all Practice + DIY goals met.
-   ![Completion screen](../images/14-networking-completion.png)
+![Route-table update succeeded](../images/05-route-tables-updated.png)
 
-## Key takeaways
+## Web-tier rules
 
-- Security groups are **stateful**: allowing inbound response traffic automatically
-  permits the outbound reply — but each tier still needs its own rules.
-- Diagrams are diagnostic tools: the red-X architecture immediately localized the
-  problem to the DB tier's inbound rules.
-- Segmentation only works if you open *exactly* what's needed — port 3306 for the
-  DB, nothing more.
+The inbound-change banner confirms a saved security-group update; the rules themselves are below the crop.
+
+![Web inbound rule update succeeded](../images/07-webserver-sg-inbound.png)
+
+The egress table shows HTTP 80, HTTPS 443 and MySQL 3306 entries. Their destinations require the fuller editor view below.
+
+![Web-tier outbound ports](../images/08-webserver-sg-outbound.png)
+
+The editor shows HTTP/HTTPS destinations, a database security-group destination for MySQL, and an additional all-traffic row. This is an editing state: it is not evidence that every displayed row was saved or that egress is narrowly restricted. Review and remove unnecessary broad egress in a production design.
+
+![Outbound rule editor and destination scope](../images/09-edit-outbound-rules.png)
+
+## Database change and validator outcome
+
+The database group shows an inbound-rule update success banner. Its exact saved source/port is below the crop. The accompanying validator reports networking assignment completion; this is broader workflow evidence, not a packet capture or per-rule audit.
+
+![Database inbound update succeeded](../images/12-dbserver-sg-inbound.png)
+
+![Networking DIY validation passed](../images/13-you-did-it.png)
+
+## Lessons
+
+Check direction, source/destination and port together; a port alone is not segmentation. Security groups are stateful, so tracked response traffic is allowed without a separate reverse-direction rule. Record saved configuration and positive/negative reachability tests before claiming production isolation.
